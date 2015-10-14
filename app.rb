@@ -10,8 +10,9 @@ bubble_array = []
 while body != "nothing"
   puts "What's on your mind? Type \"nothing\" when finished."
   body = gets.chomp
+  break if body == "nothing"
 
-  puts "-----------------------------------------------------------------------"
+  puts "-" * 100
 
   bubble_info = {
     username: username,
@@ -25,11 +26,9 @@ while body != "nothing"
 
   bubble_array.each do |bubble|
     bubble.print_info
-  puts "-----------------------------------------------------------------------"
-  next
-  end
-  if body == "nothing"
-    puts "Hope to hear from ya soon!"
-    exit
+    puts "-" * 100
   end
 end
+
+puts "-" * 100
+puts "Hope to hear from ya soon!"
