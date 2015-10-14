@@ -2,13 +2,17 @@ require_relative 'bubble'
 
 puts "What's your username?"
 username = gets.chomp
+puts "-----------------------------------------------------------------------"
 
 body = ""
 bubble_array = []
 
-while body != "done"
-  puts "What's on your mind?"
+while body != "nothing"
+  puts "What's on your mind? Type \"nothing\" when finished."
   body = gets.chomp
+
+  puts "-----------------------------------------------------------------------"
+
   bubble_info = {
     username: username,
     body: body,
@@ -17,22 +21,15 @@ while body != "done"
 
   bubble = Bubble.new(bubble_info)
 
-  bubble_array.push(Bubble.new(bubble_info))
+  bubble_array.push(bubble)
 
   bubble_array.each do |bubble|
     bubble.print_info
-
-  puts "Anything else on your mind? Type \"yes\" or \"no\"."
-  response = ""
-  response = gets.chomp
-  if response != "no"
-    next
-  else
+  puts "-----------------------------------------------------------------------"
+  next
+  end
+  if body == "nothing"
     puts "Hope to hear from ya soon!"
-    # done = ""
-    # done = gets.chomp
-    # if done == "exit"
-      exit
-    end
+    exit
   end
 end
