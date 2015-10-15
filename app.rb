@@ -22,6 +22,10 @@ while body != "nothing"
 
   bubble = Bubble.new(bubble_info)
 
+  save_bubble = File.open("/Users/ebell/Dropbox/SoapBox/" + bubble.body, "w")
+  save_bubble.write(bubble.username)
+  save_bubble.close
+
   bubble_array.push(bubble)
 
   bubble_array.each do |bubble|
