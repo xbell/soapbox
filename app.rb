@@ -2,7 +2,7 @@ require_relative 'bubble'
 
 puts "What's your username?"
 username = gets.chomp
-puts "-----------------------------------------------------------------------"
+puts "-" * 75
 
 body = ""
 bubble_array = []
@@ -12,7 +12,7 @@ while body != "nothing"
   body = gets.chomp
   break if body == "nothing"
 
-  puts "-" * 100
+  puts "-" * 75
 
   bubble_info = {
     username: username,
@@ -26,9 +26,9 @@ while body != "nothing"
 
   bubble_array.each do |bubble|
     bubble.print_info
-    puts "-" * 100
+    puts "-" * 75
   end
 end
 
-puts "-" * 100
+puts "-" * 75
 puts "Hope to hear from ya soon!"
