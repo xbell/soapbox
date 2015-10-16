@@ -11,12 +11,12 @@ class Bubble
 
     def print_info
       puts @username
-      puts @body
+      puts @body.cyan
       puts @created_at.strftime("%A, %d %b %Y %l:%M %p")
     end
 
-    def save_bubble
-      new_file = File.open("/Users/ebell/Code_Builders/Git_Hub_Work/soapbox/Bubbles/#{@body}", "w")
+    def save
+      new_file = File.open("/Users/ebell/Dropbox/SoapBox/#{@body}", "w")
       new_file.write(@username)
       new_file.close
     end

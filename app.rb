@@ -1,19 +1,40 @@
 require_relative 'bubble'
+require 'colorize'
 
+puts "welcome to soapbox".upcase.bold.magenta.underline
 
-puts "What's your username?"
+puts "What's your username?".green
 username = gets.chomp
-puts "-" * 75
+puts ("-" * 75).blue
 
 body = ""
-bubble_array = []
+
+Dir.chdir("/Users/ebell/Dropbox/SoapBox/")
 
 while body != "Exit"
-  puts "What's on your mind? Type \"Exit\" when finished."
+  bubble_array = []
+  all_bubbles = Dir.glob("*")
+
+  # putting our bubbles in order by least recent to most recent
+  all_bubbles.sort_by! {|bubble_file| File.mtime(bubble_file)}
+
+  all_bubbles.each do |bubbles|
+    bubble_file = File.open(bubbles)
+    bubble_info = {    #username: File.open(bubbles) {|bubble| bubble.readline}.chomp
+      username: bubble_file.read,
+      body: bubbles,
+      created_at: File.mtime(bubbles)
+    }
+    bubble = Bubble.new(bubble_info)
+    bubble_array.push(bubble)
+  end
+
+  puts "What's on your mind? Press enter to Post, or type \"Refresh\" to refresh, or \"Exit\" when finished.".green
   body = gets.chomp
   break if body.capitalize == "Exit"
+  next if body.capitalize == "Refresh"
 
-  puts "-" * 75
+  puts ("-" * 75).blue
 
   bubble_info = {
     username: username,
@@ -23,30 +44,16 @@ while body != "Exit"
 
   bubble = Bubble.new(bubble_info)
 
-  bubble.save_bubble
-
-  # save_bubble = File.open("/Users/ebell/Dropbox/SoapBox/" + bubble.body, "w")
-  # save_bubble.write(bubble.username)
-  # save_bubble.close
+  bubble.save
 
   bubble_array.push(bubble)
 
   bubble_array.each do |bubble|
     bubble.print_info
-    puts "-" * 75
+    puts ("-" * 75).blue
 
-    # all_bubbles = Dir.glob("/Users/ebell/Dropbox/SoapBox/*")
-
-  # puts "To post again, type \"Post\". Or type \"Refresh\" to refesh."
-  # response = gets.chomp
-  #
-  # if response.capitalize == "Post" || response.capitalize =="Refresh"
-  #   puts "-" * 75
-  # else
-  #   puts "Sorry I didn't get that."
-  # end
   end
 end
 
-puts "-" * 75
-puts "Hope to hear from ya soon!"
+puts ("-" * 75).blue
+puts "Hope to hear from ya soon!".green
