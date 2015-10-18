@@ -2,10 +2,21 @@ require_relative 'bubble'
 require 'colorize'
 
 puts "welcome to soapbox".upcase.bold.magenta.underline
-
-puts "What's your username?".green
-username = gets.chomp
-puts ("-" * 75).blue
+username = ""
+# check if .soapbox file exists
+if File.exist?("/Users/ebell/Code_Builders/Git_Hub_Work/soapbox/.soapbox")
+  # if .soapbox exists, open .soapbox file
+  username_file = File.open("/Users/ebell/Code_Builders/Git_Hub_Work/soapbox/.soapbox")
+  username = username_file.read
+else
+  puts "What's your username?".green
+  username = gets.chomp
+  puts ("-" * 75).blue
+  # save username to .soapbox file
+  username_file = File.open("/Users/ebell/Code_Builders/Git_Hub_Work/soapbox/.soapbox", "w")
+  username_file.write(username)
+  username_file.close
+end
 
 body = ""
 
