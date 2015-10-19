@@ -50,7 +50,7 @@ while body != "Exit"
   body = gets.chomp
   break if body.capitalize == "Exit"
   if body.capitalize == "Refresh"
-    bubble_array.each do |bubble|
+    bubble_array.last(10).each do |bubble|
       bubble.print_info
       puts ("-" * 75).blue
     end
@@ -77,7 +77,7 @@ while body != "Exit"
 
   bubble_array.push(bubble)
 
-  bubble_array.each do |bubble|
+  bubble_array.last(10).each do |bubble|
     bubble.print_info
     puts ("-" * 75).blue
   end
