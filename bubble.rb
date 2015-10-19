@@ -4,8 +4,8 @@ class Bubble
                 :created_at
 
     def initialize(attrs)
-      @username = attrs[:username]
-      @body = attrs[:body]
+      @username   = attrs[:username]
+      @body       = attrs[:body]
       @created_at = attrs[:created_at]
     end
 
@@ -20,5 +20,4 @@ class Bubble
       new_file.write(@username)
       new_file.close
     end
-
 end

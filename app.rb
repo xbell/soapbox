@@ -1,4 +1,5 @@
 require_relative 'bubble'
+require_relative 'soapboxfiles'
 require 'colorize'
 
 puts "welcome to soapbox".upcase.bold.magenta.underline
@@ -24,10 +25,10 @@ Dir.chdir("/Users/ebell/Dropbox/SoapBox/")
 
 while body != "Exit"
   bubble_array = []
-  all_bubbles = Dir.glob("*")
+  all_bubbles = SoapboxFiles.read
 
   # putting our bubbles in order by least recent to most recent
-  all_bubbles.sort_by! {|bubble_file| File.mtime(bubble_file)}
+  SoapboxFiles.sort(all_bubbles)
 
   all_bubbles.each do |bubbles|
     bubble_file = File.open(bubbles)
@@ -43,7 +44,13 @@ while body != "Exit"
   puts "What's on your mind? Press enter to Post, or type \"Refresh\" to refresh, or \"Exit\" when finished.".green
   body = gets.chomp
   break if body.capitalize == "Exit"
-  next if body.capitalize == "Refresh"
+  if body.capitalize == "Refresh"
+    bubble_array.each do |bubble|
+      bubble.print_info
+      puts ("-" * 75).blue
+    end
+    next
+  end
 
   puts ("-" * 75).blue
 
@@ -62,7 +69,6 @@ while body != "Exit"
   bubble_array.each do |bubble|
     bubble.print_info
     puts ("-" * 75).blue
-
   end
 end
 
